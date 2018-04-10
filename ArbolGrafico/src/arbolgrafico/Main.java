@@ -7,12 +7,12 @@ package arbolgrafico;
 
 public class Main {
 
-  
+   
     public static void main(String[] args) {
         // TODO code application logic here
         Gui gui = new Gui();
         gui.setVisible(true);
-       
+        
         
     }
 }

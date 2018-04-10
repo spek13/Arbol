@@ -1,7 +1,10 @@
+
 package arbolgrafico;
+
+import java.io.*;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 public class ArbolBinario {
 
@@ -20,7 +23,63 @@ public class ArbolBinario {
     public void iniciar(){
         this.miArbol.iniciar();
     }
+    
+    public void Guardar(){
+     javax.swing.JFileChooser jF1= new javax.swing.JFileChooser(); 
+     FileNameExtensionFilter filter = new FileNameExtensionFilter(".dat","dat");
+        jF1.setFileFilter(filter);
+     String ruta = ""; 
+        try
+      {
+         if(jF1.showSaveDialog(null)==jF1.APPROVE_OPTION){ 
+         ruta = jF1.getSelectedFile().getAbsolutePath(); 
+         } 
+         final FileOutputStream fo = new FileOutputStream(ruta);
+         final ObjectOutputStream oos = new ObjectOutputStream(fo);
+         oos.writeObject(this.miArbol);
+         oos.flush();
+         oos.close();
+      }
+      catch (Exception ex)
+      {
+         // write stack trace to standard error
+         ex.printStackTrace();
+      }
+    
+    }
+    
+    public void abrir() {
+        javax.swing.JFileChooser jF1= new javax.swing.JFileChooser(); 
+        String ruta = ""; 
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(".dat","dat");
+        jF1.setFileFilter(filter);
+        try{
+            if(jF1.showOpenDialog(null)==jF1.APPROVE_OPTION){ 
+                
+             ruta = jF1.getSelectedFile().getAbsolutePath(); 
+         		final FileInputStream fis = new FileInputStream(ruta);
+         		final ObjectInputStream ois = new ObjectInputStream(fis);  
+         		final Object deserializedObject = ois.readObject();
+         		System.out.println("Tipo de objeto " + deserializedObject.getClass().getName());
+         		if (deserializedObject instanceof Arbol){
+            		this.miArbol = (Arbol) deserializedObject;
+         		}
+         		else
+         		{
+            		System.out.println("No se esperaba " + deserializedObject.getClass().getName());
+         		}
+         		ois.close();
 
+        		
+      		}
+        }catch (Exception ex){
+         	 	
+      		}
+        }
+        
+    
+
+    
 
     public String preOrden() {
         ArrayList it = this.miArbol.preOrden();
@@ -73,7 +132,8 @@ public class ArbolBinario {
     public String porNivel(){
        int r=this.miArbol.alturaArbol();
        String nivel = Integer.toString(r);
-       
+       // ArrayList it = this.miArbol.imprimirNivel();
+       // return (recorrido(it, "Imprimir Por niveles en orden!!!"));
        return nivel;
     }
    
@@ -82,6 +142,21 @@ public class ArbolBinario {
         return (recorrido(it, "Rama(s) con mas valores"));
     }
     
+    public void limpiar(){
+        miArbol.Limpiar();
+    }
+   
+    public boolean isFull(){
+        return miArbol.isFull(miArbol.raiz);
+    }
+    
+    public boolean perfecto(){
+        return miArbol.isPerfect(miArbol.raiz);
+    }
+    public boolean degenerado(){
+        return miArbol.isDegenerate(miArbol.raiz);
+    }
+
     public JPanel getDibujo() {
         return this.miArbol.getdibujo();
     }

@@ -1,3 +1,4 @@
+
 package arbolgrafico;
 
 import java.io.Serializable;
@@ -9,6 +10,7 @@ public class Arbol implements Serializable{
     int cant;
     int altura;
     String nova, piv;
+   
 
     public Nodo getRaiz() {
         return this.raiz;
@@ -18,7 +20,7 @@ public class Arbol implements Serializable{
         this.raiz = r;
     }
 
-   
+    
 
     public boolean agregar(String dato) {
         Nodo nuevo = new Nodo(dato, null, null);
@@ -66,13 +68,14 @@ public class Arbol implements Serializable{
   }
     //metodo para ingesar nuevo elemento al arbol
     private void nodoNuevo () {
-        String nuevoN = JOptionPane.showInputDialog("Introduce nombre");
+        String nuevoN = JOptionPane.showInputDialog("introduce nombre");
         Nodo nuevo = new Nodo(nuevoN,null,null);
         if(raiz==null){
             raiz = new Nodo(nuevoN,null,null);
         }else insertar(nuevo,raiz);
     }
      
+        
     //cantidad de nodos del arbol
     public String cantidadNodos() {
         cant = 0;
@@ -274,7 +277,22 @@ public class Arbol implements Serializable{
     protected boolean esHoja(Nodo x) {
         return (x != null && x.getIzq() == null && x.getDer() == null);
     }
-
+     //metodo para limpiar el arbol
+    public void Limpiar(){
+        raiz=null;
+    }
+    
+    //metodo para saber si el arbol esta lleno 
+    public boolean isFull(Nodo node){
+        if(node == null)
+        return true;
+        if(node.izq == null && node.der == null )
+            return true;
+        if((node.izq!=null) && (node.der!=null))
+            return (isFull(node.izq) && isFull(node.der));
+        return false;
+    }
+    
     public int profundidad(Nodo node){
         int d=0;
         while (node != null)
@@ -282,7 +300,44 @@ public class Arbol implements Serializable{
         node = node.izq;
         return d;
     }
+    
+    //metodo para saber si el arbol es perfecto 
+    public boolean isPerfectRec(Nodo root,int d, int level){
 
+        if(root==null) return true;
+        
+        if(root.izq==null && root.der==null){
+            return (d==level+1);
+        }
+        
+        if(root.izq==null || root.der==null){
+            return false;
+        }
+        return isPerfectRec(root.izq, d, level+1) &&
+           isPerfectRec(root.der, d, level+1);
+    }
+    
+    public boolean isPerfect(Nodo root){
+        int d = profundidad(root);
+        return isPerfectRec(root, d,0);
+    }
+   //metodo para saber si el arbol es degenerado 
+   public boolean isDegenerate(Nodo root){
+       if (root.izq != null) {
+        if (root.der != null) {
+            return false; // not degenerate, has two children
+        } else {
+            return isDegenerate(root.izq);
+        }
+    } else {
+        if (root.der != null) {
+            return isDegenerate(root.der);
+        } else {
+            return true; // we arrived at the bottom without seeing any node with two children
+        }
+    }
+   }
+    
     //draw arbol
      public JPanel getdibujo() {
         return new ArbolExpresionGrafico(this);
