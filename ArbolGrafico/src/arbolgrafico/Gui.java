@@ -10,13 +10,13 @@ import javax.swing.*;
 
 public class Gui extends javax.swing.JFrame  {
 
-    private ArbolBinario simulador = new ArbolBinario();
+    private TreeSet simulador = new TreeSet();
     int bandera=0;
 
     
     public Gui() {
         initComponents();
-        this.jInternalFrame2.setVisible(false);
+        this.jInternalFrame2.setVisible(true);
         this.lblCnodos.setVisible(false);
         this.lblChojas.setVisible(false);
         this.altura.setVisible(false);
@@ -60,30 +60,31 @@ public class Gui extends javax.swing.JFrame  {
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setOpaque(false);
 
+        jDesktopPane1.setBackground(new java.awt.Color(255, 255, 255));
         jDesktopPane1.setOpaque(false);
 
         jInternalFrame2.setBackground(new java.awt.Color(255, 255, 255));
-        jInternalFrame2.setBorder(null);
-        jInternalFrame2.setClosable(true);
+        jInternalFrame2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         jInternalFrame2.setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         jInternalFrame2.setForeground(new java.awt.Color(255, 255, 255));
+        jInternalFrame2.setEnabled(false);
         jInternalFrame2.setFocusCycleRoot(false);
-        jInternalFrame2.setVerifyInputWhenFocusTarget(false);
+        jInternalFrame2.setFont(new java.awt.Font("Prestige Elite Std", 0, 11)); // NOI18N
         jInternalFrame2.setVisible(true);
 
         javax.swing.GroupLayout jInternalFrame2Layout = new javax.swing.GroupLayout(jInternalFrame2.getContentPane());
         jInternalFrame2.getContentPane().setLayout(jInternalFrame2Layout);
         jInternalFrame2Layout.setHorizontalGroup(
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1330, Short.MAX_VALUE)
+            .addGap(0, 1188, Short.MAX_VALUE)
         );
         jInternalFrame2Layout.setVerticalGroup(
             jInternalFrame2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 333, Short.MAX_VALUE)
+            .addGap(0, 432, Short.MAX_VALUE)
         );
 
         jDesktopPane1.add(jInternalFrame2);
-        jInternalFrame2.setBounds(0, -10, 1330, 360);
+        jInternalFrame2.setBounds(50, 30, 1190, 460);
 
         jPanel4.setOpaque(false);
 
@@ -359,7 +360,7 @@ public class Gui extends javax.swing.JFrame  {
             JOptionPane.showMessageDialog(null, "No se pudo insertar el dato", "Intenta de nuevo...", 0);
 
         }
-        jInternalFrame2.setEnabled(false);
+        jInternalFrame2.setEnabled(true);
     }//GEN-LAST:event_iniciarActionPerformed
 
     public void complementos(){
@@ -377,51 +378,19 @@ public class Gui extends javax.swing.JFrame  {
         
     }
     private void repintarArbol() {
-        this.jDesktopPane1.removeAll();
+       this.jDesktopPane1.removeAll();
         Rectangle tamaño = this.jInternalFrame2.getBounds();
         this.jInternalFrame2 = null;
         this.jInternalFrame2 = new JInternalFrame("Arbol", true);
         this.jDesktopPane1.add(this.jInternalFrame2, JLayeredPane.DEFAULT_LAYER);
         this.jInternalFrame2.setVisible(true);
         this.jInternalFrame2.setBounds(tamaño);
-        this.jInternalFrame2.setEnabled(false);
+        this.jInternalFrame2.setEnabled(true);
         this.jInternalFrame2.add(this.simulador.getDibujo(), BorderLayout.CENTER);
     }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Gui.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Gui().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel altura;
     private javax.swing.JButton botonAbrir;
