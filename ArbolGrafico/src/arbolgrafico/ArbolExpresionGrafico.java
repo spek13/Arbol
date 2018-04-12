@@ -1,5 +1,8 @@
 
 package arbolgrafico;
+
+ 
+
 import java.awt.*;
 import java.util.*;
 import javax.swing.*;
@@ -7,7 +10,7 @@ import javax.swing.*;
 
 public class ArbolExpresionGrafico extends JPanel 
 {
-    private Arbol miArbol;
+    private TreeSet miArbol;
     private HashMap posicionNodos = null;
     private HashMap subtreeSizes = null;
     private boolean dirty = true;
@@ -17,7 +20,7 @@ public class ArbolExpresionGrafico extends JPanel
     
     
     
-    public ArbolExpresionGrafico(Arbol miArbol) 
+    public ArbolExpresionGrafico(TreeSet miArbol) 
     {
           this.miArbol = miArbol;
           this.setBackground(Color.WHITE);
